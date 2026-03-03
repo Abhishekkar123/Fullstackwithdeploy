@@ -1,9 +1,25 @@
 const request =require('supertest')
 const app=require('../../app')
-describe('Test Get /launches',()=>{
+const {
+   mongoConnect,mongoDisconnect
+}=require('../../services/mongo')
+
+
+
+describe('Launches ApI',()=>{
+
+   beforeAll(async()=>{
+     await  mongoConnect();
+   });
+   // afterAll(async()=>{
+   //   await mongoDisconnect();
+   // });   
+
+
+   describe('Test Get /launches',()=>{
     test('It Should respond with 200 success',async ()=>{
         const response=await request(app)
-        .get('/launches')
+        .get('/v1/launches')
         .expect('Content-Type',/json/)  
         .expect(200)
         // expect(response.statusCode).toBe(200);
@@ -15,14 +31,14 @@ describe('Test POST /launches', () => {
     const completeLaunchDate={
         mission:'USS Enterprise',
         rocket:'NCC 1701-D',
-        target:'Kepler-186 f',
+        target:'Kepler-62 f',
         launchDate:'January 4,2028'
      }
 
      const launchWithoutDate={
         mission:'USS Enterprise',
         rocket:'NCC 1701-D',
-        target:'Kepler-186 f',
+        target:'Kepler-62 f',
        
      }
 
@@ -36,13 +52,13 @@ describe('Test POST /launches', () => {
      const launchDataWithInvalidDate={
         mission:'USS Enterprise',
         rocket:'NCC 1701-D',
-        target:'Kepler-186 f',
+        target:'Kepler-62 f',
         launchDate:'zoo'
      }
    test('It Should response to 201 success',async ()=>{
 
     const response= await request(app)
-     .post('/launches')
+     .post('/v1/launches')
      .send(completeLaunchDate)
      .expect('Content-Type',/json/)  
      .expect(201)
@@ -55,7 +71,7 @@ describe('Test POST /launches', () => {
    });
    test('It Should catch missing required properties',async ()=>{
     const response= await request(app)
-     .post('/launches')
+     .post('/v1/launches')
      .send(launchWithoutData)
      .expect('Content-Type',/json/)  
      .expect(400);
@@ -67,7 +83,7 @@ describe('Test POST /launches', () => {
 
    test('It should catch Invalid dates',async ()=>{
     const response= await request(app)
-     .post('/launches')
+     .post('/v1/launches')
      .send(launchDataWithInvalidDate)
      .expect('Content-Type',/json/)  
      .expect(400);
@@ -78,3 +94,7 @@ describe('Test POST /launches', () => {
 
    })
 })
+
+
+})
+
