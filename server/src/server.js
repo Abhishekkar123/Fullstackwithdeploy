@@ -1,10 +1,13 @@
 const http=require('http');
-const app=require('./app')
-const mongoose=require('mongoose')
+// const mongoose=require('mongoose');
+const dotenv=require('dotenv');
+const app=require('./app');
+
+
 const {loadPlanetData}=require('./models/planet.model');
 const {loadLaunchData}=require('./models/launches.model')
 const server=http.createServer(app);
-const dotenv=require('dotenv');
+
 
 const {mongoConnect}=require('./services/mongo')
 dotenv.config();
