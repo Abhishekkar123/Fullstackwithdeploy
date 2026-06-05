@@ -11,7 +11,7 @@ jobs:
       env: 
         CI: true
       strategy:
-        matrix: 
+        matrix:
           node-version: [20.x,22.x]
       runs-on: ubuntu-latest
       steps:
