@@ -3,8 +3,8 @@ const app=require('../../app')
 const {
    mongoConnect,mongoDisconnect
 }=require('../../services/mongo');
-const { loadLaunchData } = require('../../models/launches.model');
-// const { loadPlanetData } = require('../../models/planet.model');
+// const { loadLaunchData } = require('../../models/launches.model');
+const { loadPlanetData } = require('../../models/planet.model');
 
 
 
