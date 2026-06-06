@@ -2,7 +2,9 @@ const request =require('supertest')
 const app=require('../../app')
 const {
    mongoConnect,mongoDisconnect
-}=require('../../services/mongo')
+}=require('../../services/mongo');
+const { loadLaunchData } = require('../../models/launches.model');
+// const { loadPlanetData } = require('../../models/planet.model');
 
 
 
@@ -10,6 +12,7 @@ describe('Launches ApI',()=>{
 
    beforeAll(async()=>{
      await  mongoConnect();
+     await loadPlanetData()
    });
    // afterAll(async()=>{
    //   await mongoDisconnect();
